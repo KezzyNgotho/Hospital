@@ -35,6 +35,14 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
+        .form-container img {
+            max-width: 100px;
+            display: block;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
         input[type="text"],
         input[type="password"] {
             width: 100%;
@@ -90,14 +98,13 @@
 <body>
     <div class="top-bar">
         <a href="{% url 'landing_page' %}">Home</a>
-
         <a href="#">Emergency</a>
         <a href="#">Contacts</a>
-
         <!-- Add other navigation links as needed -->
     </div>
     <h1>Admin Login</h1>
     <div class="form-container">
+        <img src="/static/images/1.png" alt="Hospital Logo">
         <form method="POST" action="{% url 'admin_login' %}">
             {% if messages %}
             {% for message in messages %}

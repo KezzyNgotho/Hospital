@@ -9,11 +9,11 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f1f1f1;
+            background-color: #f7f7f7;
         }
 
         .top-bar {
-            background-color: #428bca;
+            background-color: #0056b3;
             padding: 10px;
             text-align: center;
             color: white;
@@ -21,17 +21,34 @@
 
         h1 {
             text-align: center;
-            margin-top: 20px;
-            color: #333;
+            margin-top: 10px;
+            color: #0056b3;
         }
 
-        form {
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            margin-bottom: 400px; /* Increase the height by adjusting the margin */
+            margin-top: 0;
             max-width: 400px;
-            margin: 20px auto;
+            width: 80%;
             padding: 20px;
-            background-color: #f1f1f1;
-            border-radius: 4px;
+            background-color: #fff;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hospital-logo {
+            max-width: 150px;
+            margin: 0 auto 10px;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         label {
@@ -52,17 +69,19 @@
         }
 
         button[type="submit"] {
-            background-color: #428bca;
+            background-color: #0056b3;
             color: #fff;
             padding: 10px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
         }
 
         button[type="submit"]:hover {
-            background-color: #3071a9;
+            background-color: #003d80;
         }
 
         p.error {
@@ -70,43 +89,100 @@
             margin-top: 20px;
         }
 
+        .divider {
+            border-bottom: 2px solid #0056b3;
+            margin: 40px auto; /* Added decorative divider below the form */
+            max-width: 300px;
+        }
+
+        .message {
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
         .footer {
-            background-color: #333;
+           {% comment %}  background-color: #0056b3; {% endcomment %}
             padding: 10px;
             text-align: center;
-            color: white;
+            color: black;
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
+            font-weight:bold;
         }
 
         .footer p {
             margin: 0;
             padding: 5px;
         }
+
+        .navbar {
+            background-color: #428bca;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .navbar li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar li a:hover {
+            background-color: #3071a9;
+        }
     </style>
 </head>
 <body>
-    <div class="top-bar">
-      
+    <div class="navbar">
+        <ul>
+            <li><a href="{% url 'incharge_dashboard' %}">Incharge</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+    <h1>Outpatient Sign In</h1>
+    <div class="container">
+        <div class="form-container">
+            <img src="/static/images/1.png" alt="Hospital Logo" class="hospital-logo">
+           
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="is_inpatient" value="False">
 
-        {% block content %}
-          <h1>Outpatient Sign In</h1>
-          <form method="post">
-            {% csrf_token %}
-            <input type="hidden" name="is_inpatient" value="False">
-          
-            <label for="student_number">Student Number:</label>
-            <input type="text" name="student_number" id="student_number">
-            <button type="submit">Sign In</button>
-          </form>
-        {% endblock %}
-        
-    
+                <label for="student_number">Student Number:</label>
+                <input type="text" name="student_number" id="student_number" placeholder="Enter your student number">
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="message">
+        <p>Welcome to our Hospital! We are committed to providing you with the best care and support. Together, we can make a difference in your health journey.</p>
+    </div>
 
     <div class="footer">
-        <p>Contact us at: email@example.com</p>
+        <p>&copy; {{ year }} KezzyCodeCove. All rights reserved. </p>
     </div>
 </body>
 </html>

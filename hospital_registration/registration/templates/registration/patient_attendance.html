@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f5f5f5;
         }
 
         .top-bar {
@@ -19,7 +20,7 @@
         }
 
         .navbar {
-            background-color:black;
+            background-color: black;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -50,18 +51,33 @@
             background-color: #3071a9;
         }
 
-        h1 {
-            text-align: center;
-            margin-top: 20px;
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color:#f5f5f5;
+            border-radius:1px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         form {
-            max-width: 600px; /* Increased the max-width of the form */
-            margin: 20px auto;
-            padding: 30px; /* Increased the padding of the form */
-            background-color: #f1f1f1;
+            padding: 20px;
+            background-color: #fff;
             border-radius: 4px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hospital-logo {
+            max-width: 100px;
+            margin: 0 auto 20px;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         label {
@@ -84,15 +100,42 @@
         button[type="submit"] {
             background-color: #428bca;
             color: #fff;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
         }
 
         button[type="submit"]:hover {
             background-color: #3071a9;
+        }
+
+        /* Style for the "Sign Out" button */
+        button[type="submit"].sign-out {
+            background-color: #f44336; /* Red color for sign-out button */
+        }
+
+        /* Center the buttons inside the form */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* Responsive styles for smaller screens */
+        @media only screen and (max-width: 600px) {
+            .button-container {
+                flex-direction: column;
+            }
+
+            /* Add margin between buttons on smaller screens */
+            button[type="submit"] {
+                margin-bottom: 10px;
+            }
         }
 
         p.error {
@@ -101,7 +144,6 @@
         }
 
         .footer {
-           
             padding: 10px;
             text-align: center;
             color: black;
@@ -132,28 +174,32 @@
             <li><a href="#">Contact</a></li>
         </ul>
     </div>
-    <h1>Patient Attendance</h1>
-    {% if error %}
-    <p class="error">{{ error }}</p>
-    {% endif %}
-    <form method="POST">
-        {% csrf_token %}
-        <label for="student_number">Student Number:</label>
-        <input type="text" name="student_number" id="student_number">
-        <label for="option">Select Option:</label>
-        <select name="option" id="option">
-            <option value="inpatient">Inpatient</option>
-            <option value="outpatient">Outpatient</option>
-        </select>
-        <button type="submit">Proceed</button>
-    </form>
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <div style="text-align: center;">
+                <img src="/static/images/1.png" alt="Hospital Logo" class="hospital-logo">
+                <h1>Patient Attendance</h1>
+            </div>
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+            <label for="student_number">Student Number:</label>
+            <input type="text" name="student_number" id="student_number">
+            <label for="option">Select Option:</label>
+            <select name="option" id="option">
+                <option value="inpatient">Inpatient</option>
+                <option value="outpatient">Outpatient</option>
+            </select>
+            <button type="submit">Proceed</button>
+        </form>
 
-    <!-- Add the sign-out button for patients -->
-    <form action="{% url 'patient_dashboard' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Sign Out</button>
-    </form>
-
+        <!-- Add the sign-out button for patients -->
+        <form action="{% url 'patient_dashboard' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Sign Out</button>
+        </form>
+    </div>
     <div class="footer">
         <!-- Add your footer content here -->
         &copy; 2023 KezzyCodeCove. All rights reserved.

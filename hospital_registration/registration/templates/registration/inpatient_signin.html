@@ -17,8 +17,6 @@
             padding: 2px;
             text-align: center;
         }
-
-
         
         .navbar {
             background-color: #428bca;
@@ -59,11 +57,11 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center the content */
         }
 
         h1 {
-            text-align: center;
-            margin-top: 20px;
+            margin-top: 10px; /* Adjust the margin for better spacing */
         }
 
         #inpatientSigninForm label {
@@ -96,7 +94,6 @@
         }
 
         .footer {
-           
             color: black;
             padding: 2px;
             text-align: center;
@@ -105,19 +102,26 @@
             left: 0;
             width: 100%;
         }
+
+        .hospital-logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
-       <ul>
-       <li> <a href="{% url 'incharge_dashboard' %}">Incharge</a></li>
-        <li><a href="#">Contact</a></li>
-       
-       </ul>
+        <ul>
+            <li><a href="{% url 'incharge_dashboard' %}">Incharge</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
     </div>
     <div class="container">
+        <img src="/static/images/1.png" alt="Hospital Logo" class="hospital-logo">
         <h1>Inpatient Sign-in</h1>
-        <form method="post" action="{% url 'save_inpatient_details' %}">
+        <form method="post" action="{% url 'save_inpatient_details' %}" id="inpatientSigninForm">
             {% csrf_token %}
             <input type="hidden" name="student_number" value="{{ patient.student_number }}">
             <label for="roomNumber">Room Number:</label>
@@ -138,7 +142,7 @@
         </form>
     </div>
     <div class="footer">
-        <!-- Your existing footer content -->
+        <p>&copy; {{ year }} KezzyCodeCove. All rights reserved. </p>
     </div>
 </body>
 </html>

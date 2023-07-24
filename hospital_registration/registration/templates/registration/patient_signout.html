@@ -2,7 +2,85 @@
 <html>
 <head>
     <title>Patient Sign Out</title>
-    <!-- Add your CSS and other resources -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #0056b3;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #003d80;
+        }
+
+        .hospital-logo {
+            max-width: 150px;
+            margin: 0 auto 20px;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer {
+            background-color: #0056b3;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 0;
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
     <h1>Patient Sign Out</h1>
@@ -13,5 +91,12 @@
         <textarea name="activities" required></textarea>
         <button type="submit">Submit</button>
     </form>
+
+    <!-- Add the hospital logo -->
+    <img src="/static/images/hospital_logo.png" alt="Hospital Logo" class="hospital-logo">
+
+    <div class="footer">
+        <p>&copy; {{ year }} YourHospitalName. All rights reserved.</p>
+    </div>
 </body>
 </html>

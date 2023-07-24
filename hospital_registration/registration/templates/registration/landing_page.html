@@ -12,7 +12,7 @@
         }
         
         .top-bar {
-            background-color:black;
+            background-color: black;
             color: #fff;
             padding: 10px;
             text-align: center;
@@ -27,46 +27,59 @@
         .container {
             max-width: 600px;
             margin: 0 auto;
-            padding-top: 20px;
+            padding: 30px;
             text-align: center;
-            background-color:white;
-            margin-top:70px;
+            background-color:#f4f6fc;
+            border-radius: 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 30px;
         }
         
         .container h1 {
-            color: black;
-            font-size: 32px;
-            margin-bottom: 3px;
+            color: #428bca;
+            font-size: 36px;
+            margin-bottom: 10px;
         }
           
         .container h2 {
-            color: black;
-            font-size: 22px;
-            margin-bottom:90px;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 40px;
         }
         
         .container .btn {
             display: inline-block;
             background-color: #428bca;
             color: #fff;
-            padding: 10px 20px;
+            padding: 12px 24px;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 18px;
             border-radius: 4px;
             margin-right: 20px;
-            margin-bottom:70px;
+            margin-bottom: 40px;
+            transition: background-color 0.3s;
+        }
+        
+        .container .btn:hover {
+            background-color: #3071a9;
+        }
+        
+        .hospital-logo {
+            max-width: 180px;
+            margin-bottom: 10px;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .footer {
-         
-            color:black;
+            color: #333;
             padding: 10px;
             text-align: center;
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            font-weight:bold;
+            font-weight: bold;
         }
         
         .footer p {
@@ -81,8 +94,9 @@
         <a href="#">Contact</a>
     </div>
     <div class="container">
+        <img src="/static/images/1.png" alt="Hospital Logo" class="hospital-logo">
         <h1>Welcome to CodeCove Hospital</h1>
-        <h2>we wish you a quick recovery!</h2>
+        <h2>We wish you a quick recovery!</h2>
         <a href="{% url 'admin_login' %}" class="btn">Admin Login</a>
         <a href="{% url 'incharge_login' %}" class="btn">Incharge Login</a>
     </div>

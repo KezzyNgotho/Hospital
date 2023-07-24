@@ -11,20 +11,65 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f9f9f9;
         }
 
         .top-bar {
-            background-color:black;
+            background-color: black;
             color: #fff;
             padding: 1px;
             text-align: center;
         }
 
+        .navbar {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 1.2rem;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar li {
+            margin: 0 15px;
+        }
+
+        .navbar li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar li a:hover {
+            background-color: #3071a9;
+        }
+
         .container {
             max-width: 1000px; /* Increased size of the container */
-            margin: 0 auto;
+            margin: 70px auto 20px; /* Added top margin to avoid overlapping with fixed navbar */
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color:white;
             border-radius: 4px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
@@ -40,7 +85,7 @@
             padding: 20px;
             border-radius: 4px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .details p {
@@ -66,7 +111,7 @@
             resize: vertical;
         }
 
-        button[type="submit"] {
+        input[type="submit"] {
             background-color: #428bca;
             color: #fff;
             padding: 10px 20px;
@@ -74,56 +119,37 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
         }
 
-        button[type="submit"]:hover {
-            background-color:  #428bca;
+        input[type="submit"]:hover {
+            background-color: #3071a9;
+        }
+
+        .hospital-logo {
+            max-width: 150px;
+            margin: 0 auto 10px;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .footer {
             color: black;
             padding: 10px;
             text-align: center;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-        .navbar {
-            background-color:black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 50px;
-        }
-
-        .navbar ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar li {
-            display: inline-block;
-            margin: 0 15px;
-        }
-
-        .navbar li a {
-            color: white;
-            text-decoration: none;
             font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
         }
 
-        .navbar li a:hover {
-            background-color: #3071a9;
+        .footer p {
+            margin: 0;
+            padding: 5px;
         }
-
     </style>
 </head>
 <body>
+    <div class="top-bar"></div>
     <div class="navbar">
         <h1>Patient Dashboard</h1>
         <ul>
@@ -132,6 +158,7 @@
         </ul>
     </div>
     <div class="container">
+        <img src="/static/images/1.png" alt="Hospital Logo" class="hospital-logo">
         <h2>Welcome, {{ patient_name }}!</h2>
     
         {% if patient_number and patient_gender %}
@@ -157,7 +184,7 @@
         {% endif %}
     </div>
     
-    <footer>
+    <footer class="footer">
         <!-- Add footer content here -->
         <p>&copy; {{ year }} KezzyCodeCove. All rights reserved. </p>
     </footer>
