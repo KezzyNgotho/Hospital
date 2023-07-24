@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital Attendance</title>
+    <style>
+        body {
+            background-image: url('/static/images/landing_background.jpg');
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .top-bar {
+            background-color:black;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 80px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px;
+            text-align: center;
+            background-color:white;
+            margin-top:70px;
+        }
+        
+        .container h1 {
+            color: black;
+            font-size: 32px;
+            margin-bottom: 3px;
+        }
+          
+        .container h2 {
+            color: black;
+            font-size: 22px;
+            margin-bottom:90px;
+        }
+        
+        .container .btn {
+            display: inline-block;
+            background-color: #428bca;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-right: 20px;
+            margin-bottom:70px;
+        }
+        
+        .footer {
+         
+            color:black;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-weight:bold;
+        }
+        
+        .footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="#">Home</a>
+        <a href="#">Emergency</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="container">
+        <h1>Welcome to CodeCove Hospital</h1>
+        <h2>we wish you a quick recovery!</h2>
+        <a href="{% url 'admin_login' %}" class="btn">Admin Login</a>
+        <a href="{% url 'incharge_login' %}" class="btn">Incharge Login</a>
+    </div>
+    <div class="footer">
+        <p>&copy; 2023 KezzyCodeCove. All rights reserved.</p>
+    </div>
+</body>
+</html>

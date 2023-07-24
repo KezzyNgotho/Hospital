@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign-in Options</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #sign-in-form {
+            width: 300px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #sign-in-form p {
+            margin: 10px 0;
+        }
+
+        #sign-in-form label {
+            margin-left: 10px;
+        }
+
+        #sign-in-form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #sign-in-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sign-in Options</h1>
+    <form id="sign-in-form" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="student_number" value="{{ patient.student_number }}">
+        <p>Welcome, {{ patient.full_name }}!</p>
+        <p>Select the sign-in option:</p>
+        <input type="radio" id="inpatient-option" name="option" value="inpatient" required>
+        <label for="inpatient-option">Inpatient</label><br>
+        <input type="radio" id="outpatient-option" name="option" value="outpatient" required>
+        <label for="outpatient-option">Outpatient</label><br>
+        <button type="submit">Sign In</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inpatient Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Add your custom styles here */
+    </style>
+</head>
+<body>
+    <h1>Inpatient Details</h1>
+    <p>Patient Student Number: {{ patient.student_number }}</p>
+    <p>Patient Full Name: {{ patient.full_name }}</p>
+    <p>Patient Gender: {{ patient.gender }}</p>
+
+    <h2>Sign In</h2>
+    <form id="inpatientSignInForm" method="POST" action="{% url 'inpatient_signin' %}">
+        {% csrf_token %}
+        <input type="hidden" name="student_number" value="{{ patient.student_number }}">
+        <input type="hidden" name="condition" value="normal">
+
+        <!-- Add additional fields if required -->
+
+        <button type="submit">Sign In</button>
+    </form>
+</body>
+</html>

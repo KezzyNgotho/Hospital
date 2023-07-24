@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inpatient Sign-in</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-bar {
+            background-color:black;
+            color: #fff;
+            padding: 2px;
+            text-align: center;
+        }
+
+
+        
+        .navbar {
+            background-color: #428bca;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .navbar li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar li a:hover {
+            background-color: #3071a9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #inpatientSigninForm label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #inpatientSigninForm input[type="text"],
+        #inpatientSigninForm select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #inpatientSigninForm button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: black;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #inpatientSigninForm button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+           
+            color: black;
+            padding: 2px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+       <ul>
+       <li> <a href="{% url 'incharge_dashboard' %}">Incharge</a></li>
+        <li><a href="#">Contact</a></li>
+       
+       </ul>
+    </div>
+    <div class="container">
+        <h1>Inpatient Sign-in</h1>
+        <form method="post" action="{% url 'save_inpatient_details' %}">
+            {% csrf_token %}
+            <input type="hidden" name="student_number" value="{{ patient.student_number }}">
+            <label for="roomNumber">Room Number:</label>
+            <input type="text" id="roomNumber" name="room_number" required><br><br>
+
+            <label for="patientDepartment">Patient Department:</label>
+            <select id="patientDepartment" name="department" required>
+                <option value="">Select Department</option>
+                <option value="Department A">Department A</option>
+                <option value="Department B">Department B</option>
+                <option value="Department C">Department C</option>
+            </select><br><br>
+
+            <!-- Add the new hidden field for is_inpatient -->
+            <input type="hidden" name="is_inpatient" value="True">
+
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+    <div class="footer">
+        <!-- Your existing footer content -->
+    </div>
+</body>
+</html>

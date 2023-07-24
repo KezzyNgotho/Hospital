@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Attendance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Patient Attendance</h1>
+    </div>
+
+    <form method="POST" action="{% url 'patient_attendance' %}">
+        {% csrf_token %}
+        <input type="text" name="student_number" placeholder="Enter Student Number" required>
+        <input type="hidden" name="action" value="sign_in">
+        <button type="submit">Sign In</button>
+    </form>
+</body>
+</html>

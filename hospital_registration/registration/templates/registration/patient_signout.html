@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Sign Out</title>
+    <!-- Add your CSS and other resources -->
+</head>
+<body>
+    <h1>Patient Sign Out</h1>
+    <form method="POST" action="{% url 'patient_signout' %}">
+        {% csrf_token %}
+        <input type="hidden" name="student_number" value="{{ student_number }}">
+        <label for="activities">Activities:</label>
+        <textarea name="activities" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

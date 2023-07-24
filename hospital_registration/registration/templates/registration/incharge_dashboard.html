@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <style>
+        body {
+            background-color: #f1f1f1;
+            background-image: url("/static/images/background2_image.jpg"); /* Replace with the actual image URL */
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            background-color:black;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 40px;
+        }
+
+        .footer {
+            color: black;
+           
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="{% url 'landing_page' %}">Home</a>
+        <a href="{% url 'patient_attendance' %}">Emerging Issues</a>
+        <a href="{% url 'patient_attendance' %}">Register Patients</a>
+        <!-- Add other navigation links as needed -->
+    </div>
+
+    <h1>WELCOME INCHARGE</h1>
+
+    <!-- No need for the video-container and video elements -->
+
+    <div class="footer">
+        &copy; 2023 KezzyCodeCove. All rights reserved.
+    </div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Attendance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-bar {
+            background-color: black;
+            padding: 2px;
+            text-align: center;
+            color: white;
+        }
+
+        .navbar {
+            background-color:black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .navbar li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar li a:hover {
+            background-color: #3071a9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        form {
+            max-width: 600px; /* Increased the max-width of the form */
+            margin: 20px auto;
+            padding: 30px; /* Increased the padding of the form */
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #428bca;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #3071a9;
+        }
+
+        p.error {
+            color: red;
+            margin-top: 20px;
+        }
+
+        .footer {
+           
+            padding: 10px;
+            text-align: center;
+            color: black;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 0;
+            padding: 5px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .navbar li {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <!-- Add your navbar content here -->
+        <ul>
+            <li><a href="{% url 'incharge_dashboard' %}">Incharge</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+    <h1>Patient Attendance</h1>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <label for="student_number">Student Number:</label>
+        <input type="text" name="student_number" id="student_number">
+        <label for="option">Select Option:</label>
+        <select name="option" id="option">
+            <option value="inpatient">Inpatient</option>
+            <option value="outpatient">Outpatient</option>
+        </select>
+        <button type="submit">Proceed</button>
+    </form>
+
+    <!-- Add the sign-out button for patients -->
+    <form action="{% url 'patient_dashboard' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Sign Out</button>
+    </form>
+
+    <div class="footer">
+        <!-- Add your footer content here -->
+        &copy; 2023 KezzyCodeCove. All rights reserved.
+    </div>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard - KezzyCodeCove</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add other CSS files or custom styles here if needed -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .navbar a:hover {
+            color: lightgray;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border: none;
+        }
+
+        .card-header {
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .list-group-item {
+            border: none;
+            font-size: 14px;
+        }
+
+        .list-group-item strong {
+            font-weight: bold;
+        }
+
+        .footer {
+            color: black;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>KezzyCodeCove</h1>
+        <a href="{% url 'landing_page' %}">Home</a>
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>
+        <a href="#">Logout</a>
+    </div>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col">
+                <h2>Welcome, Admin!</h2>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Total Attendance</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-title">Total number of attendances recorded: {{ total_attendance }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Inpatients</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if inpatients %}
+                    <ul class="list-group">
+                        {% for inpatient in inpatients %}
+                                    <li class="list-group-item">
+                                        <strong>Patient Number:</strong> {{ inpatient.patient.student_number }}<br>
+                            <strong>Patient Name:</strong> {{ inpatient.patient.full_name }}<br>
+                            <strong>Room Number:</strong> {{ inpatient.patient.room_number }}<br>
+                            <strong>Department:</strong> {{ inpatient.patient.department }}<br>
+                            <strong>Check-in Date:</strong> {{ inpatient.check_in|date:"F d, Y" }}<br>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No inpatients found.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Outpatients</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if outpatients %}
+                            <ul class="list-group">
+                                {% for outpatient in outpatients %}
+                                    <li class="list-group-item">
+                                        <strong>Patient Number:</strong> {{ outpatient.patient.student_number }}<br>
+                                        <strong>Patient Name:</strong> {{ outpatient.patient.full_name }}<br>
+                                        <strong>Check-in Date:</strong> {{ outpatient.check_in|date:"F d, Y" }}<br>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No outpatients found.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Common Diseases Summary</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if common_diseases_summary %}
+                            <ul class="list-group">
+                                {% for disease, count in common_diseases_summary %}
+                                    <li class="list-group-item">{{ disease }}: {{ count }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No common diseases data available.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Sign Out Patients</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if sign_out_patients %}
+                            <ul class="list-group">
+                                {% for sign_out_patient in sign_out_patients %}
+                                    <li class="list-group-item">
+                                        <strong>Patient Number:</strong> {{ sign_out_patient.patient.student_number }}<br>
+                                        <strong>Patient Name:</strong> {{ sign_out_patient.patient.full_name }}<br>
+                                        <strong>Sign Out Date:</strong> {{ sign_out_patient.signed_out|date:"F d, Y" }}<br>
+                                        {% if sign_out_patient.is_inpatient %}
+                                            <strong>Room Number:</strong> {{ sign_out_patient.room_number }}<br>
+                                            <strong>Department:</strong> {{ sign_out_patient.department }}<br>
+                                        {% endif %}
+                                        <strong>Activities during the stay:</strong> {{ sign_out_patient.activities }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No sign out patients found.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <!-- Add footer content here -->
+        <p>&copy; {{ year }} KezzyCodeCove. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add other JavaScript files or custom scripts here if needed -->
+</body>
+</html>
