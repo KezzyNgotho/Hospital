@@ -98,19 +98,16 @@ class InpatientDetails(models.Model):
 
 
 # ... Your other view functions ...
-
-
 class PatientSignOut(models.Model):
     check_in = models.DateTimeField()
-    incharge = models.ForeignKey(User, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    is_inpatient = models.BooleanField(default=False)  # New field
+    
+    department = models.CharField(max_length=100)  # Add this field
+    appointment_date = models.DateField()  # Add this field
 
     class Meta:
-        unique_together = (("check_in", "incharge", "patient"),)
+        unique_together = (("check_in", "patient"),)
 
     def save(self, *args, **kwargs):
-        self.is_inpatient = self.patient.is_inpatient()
+        self.is_inpatient = self.patient.patient_type == Patient.INPATIENT
         super().save(*args, **kwargs)
-
-# ... Your other view functions ...

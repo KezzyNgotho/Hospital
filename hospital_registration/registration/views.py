@@ -12,6 +12,7 @@ from .models import (
   
 )
 from .models import Attendance
+from django.contrib.auth.decorators import login_required
 
 def get_patient_details_by_type(request, is_inpatient):
     if request.method == "POST":
@@ -40,34 +41,37 @@ def get_patient_details_by_type(request, is_inpatient):
 def patient_sign_out(request):
     if request.method == "POST":
         student_number = request.POST.get("student_number")
-        activities = request.POST.get("activities")
+        department = request.POST.get("department")
+        appointment_date = request.POST.get("appointment_date")
 
+        # Fetch the patient details from the attendance table
         try:
-            patient = Patient.objects.get(student_number=student_number)
-            is_inpatient = patient.patient_type == Patient.INPATIENT
-
-            patient_sign_out = PatientSignOut(
-                check_in=timezone.now(),
-                incharge=request.user,
-                patient=patient,
-                is_inpatient=is_inpatient,
-            )
-            patient_sign_out.save()
-
-            request.session.pop("patient_number", None)
-            request.session.pop("patient_name", None)
-            request.session.pop("patient_gender", None)
-
-            messages.success(request, "Sign out successful!")
-            return redirect("patient_dashboard")
-
-        except Patient.DoesNotExist:
+            attendance = Attendance.objects.get(student_number=student_number)
+            patient = attendance.patient
+        except Attendance.DoesNotExist:
+            messages.error(request, "Patient not found.")
             return redirect("patient_attendance")
 
+        # Create the sign-out record
+        patient_sign_out = PatientSignOut(
+            check_in=attendance.check_in,
+           
+            patient=patient,
+            # Assuming is_inpatient() is a method in the Patient model
+            department=department,
+            appointment_date=appointment_date,
+        )
+        patient_sign_out.save()
+
+        # Clear the patient session data
+        request.session.pop("patient_number", None)
+        request.session.pop("patient_name", None)
+        request.session.pop("patient_gender", None)
+
+        messages.success(request, "Sign out successful!")
+        return redirect("patient_dashboard")
+
     return redirect("patient_attendance")
-
-
-
 
 def landing_page(request):
     return render(request, "registration/landing_page.html")
@@ -366,8 +370,12 @@ def patient_dashboard(request):
             "department": department,
         },
     )
-
 def admin_dashboard(request):
+    # Fetch total number of patients and total number of incharges
+    total_patients = get_total_patients()
+    total_incharges = get_total_incharges()
+
+    # Fetch other data for the dashboard
     total_attendance = get_total_attendance()
     common_diseases_summary = get_common_diseases_summary()
     sign_out_patients = get_sign_out_patients()
@@ -378,6 +386,8 @@ def admin_dashboard(request):
     outpatients = get_outpatients()
 
     context = {
+        "total_patients": total_patients,
+        "total_incharges": total_incharges,
         "total_attendance": total_attendance,
         "inpatients": inpatients,
         "outpatients": outpatients,
@@ -387,6 +397,7 @@ def admin_dashboard(request):
     }
 
     return render(request, "registration/admin_dashboard.html", context)
+
 
 def get_inpatients():
     # Filter the Attendance model by patients with the patient_type as 'inpatient'
@@ -420,3 +431,10 @@ def get_current_year():
 
 def incharge_dashboard(request):
     return render(request, "registration/incharge_dashboard.html")
+def get_total_patients():
+    total_patients = Patient.objects.count()
+    return total_patients
+
+def get_total_incharges():
+    total_incharges = Incharge.objects.count()
+    return total_incharges

@@ -2,6 +2,9 @@
 <html>
 <head>
     <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include the datepicker CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -174,11 +177,30 @@
             <h3>Sign Out</h3>
             <form method="post" action="{% url 'patient_sign_out' %}">
                 {% csrf_token %}
-                <label for="activities">Activities during the stay:</label>
-                <textarea name="activities" id="activities" rows="4" cols="50" required></textarea>
-                <br>
-                <input type="submit" value="Sign Out">
+                {% comment %}  <label for="activities">Activities during the stay:</label>
+                <textarea name="activities" id="activities" rows="4" cols="50" required></textarea> {% endcomment %}
+                <input type="hidden" name="student_number" value="{{ patient_number }}">
+                <div class="form-group col-md-6">
+                    <label for="department">Select Department:</label>
+                    <select name="department" id="department" class="form-control" required>
+                        <option value="" selected disabled>Select Department</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <!-- Add other department options as needed -->
+                    </select>
+                </div>
+            
+                <div class="form-group col-md-6">
+                    <label for="appointment_date">Next Appointment Date:</label>
+                    <input type="text" name="appointment_date" id="appointment_date" class="form-control" required readonly>
+                </div>
+             
+            
+                <input type="submit" value="Sign Out" class="btn btn-primary">
             </form>
+            
+            
         {% else %}
             <p>No active attendance record found.</p>
         {% endif %}
@@ -189,8 +211,20 @@
         <p>&copy; {{ year }} KezzyCodeCove. All rights reserved. </p>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include the datepicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script>
-        // Your JavaScript code goes here (if any).
+        // Initialize the datepicker
+        $(document).ready(function() {
+            $('#appointment_date').datepicker({
+                format: 'yyyy-mm-dd',
+                startDate: '+1d', // Allow selection starting from tomorrow
+                autoclose: true
+            });
+        });
     </script>
 </body>
 </html>
