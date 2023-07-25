@@ -1,148 +1,221 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Inpatient Sign-in</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Admin Dashboard</title>
+    <!-- Add Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add Font Awesome CSS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
+            background-color: #e0ffff; /* Baby Cyan */
+        }
+        .sidebar {
+            background-color:white;
+            color:black;
+            height: 100vh;
+            padding-top: 20px;
+            width: 150px; /* Adjust the width as needed */
+        }
+        .form-container img {
+            max-width: 100px;
+            display: block;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar a {
+            color:black;
+            text-decoration: none;
+            display: block;
+            padding: 10px 20px;
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+        }
+
+        .content {
+            padding: 20px;
         }
 
         .top-bar {
-            background-color:black;
+            background-color: #333;
             color: #fff;
-            padding: 2px;
+            padding: 10px;
             text-align: center;
         }
-        
-        .navbar {
-            background-color: #428bca;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 50px;
-        }
 
-        .navbar ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar li {
-            display: inline-block;
-            margin: 0 15px;
-        }
-
-        .navbar li a {
-            color: white;
+        .top-bar a {
+            color: #fff;
             text-decoration: none;
+            margin: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 40px;
+        }
+
+        .footer {
+            color: black;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            background-color: #f9f9f9;
+            padding: 10px;
         }
+        /* Existing styles for sidebar and top-bar */
 
-        .navbar li a:hover {
-            background-color: #3071a9;
-        }
-
+        /* Improved styling for the form */
         .container {
             max-width: 600px;
             margin: 30px auto;
             padding: 20px;
             background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: center; /* Center the content */
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .hospital-logo {
+            max-width: 100px;
+            margin: 0 auto 20px;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
-            margin-top: 10px; /* Adjust the margin for better spacing */
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
         }
 
-        #inpatientSigninForm label {
+        label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            font-weight: bold;
         }
 
-        #inpatientSigninForm input[type="text"],
-        #inpatientSigninForm select {
+        input[type="text"],
+        input[type="number"],
+        select {
             width: 100%;
             padding: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
         }
 
-        #inpatientSigninForm button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: black;
+        button[type="submit"] {
+            background-color: #428bca;
             color: #fff;
+            padding: 12px 24px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
         }
 
-        #inpatientSigninForm button:hover {
-            background-color: #0056b3;
+        button[type="submit"]:hover {
+            background-color: #3071a9;
         }
 
+        /* Style for the "Sign Out" button */
+        .btn-sign-out {
+            background-color: black;
+        }
+
+        /* Footer styling */
         .footer {
             color: black;
-            padding: 2px;
             text-align: center;
             position: fixed;
             bottom: 0;
             left: 0;
-            width: 100%;
-        }
-
-        .hospital-logo {
-            max-width: 150px;
-            margin-bottom: 20px;
-            border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            right: 0;
+            font-weight: bold;
+            background-color: #f9f9f9;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <ul>
-            <li><a href="{% url 'incharge_dashboard' %}">Incharge</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </div>
-    <div class="container">
-        <img src="/static/images/1.png" alt="Hospital Logo" class="hospital-logo">
-        <h1>Inpatient Sign-in</h1>
-        <form method="post" action="{% url 'save_inpatient_details' %}" id="inpatientSigninForm">
-            {% csrf_token %}
-            <input type="hidden" name="student_number" value="{{ patient.student_number }}">
-            <label for="roomNumber">Room Number:</label>
-            <input type="text" id="roomNumber" name="room_number" required><br><br>
+    <div class="container-fluid">
+        <!-- Top Bar -->
+        <div class="row">
+            <div class="col-12 top-bar">
+                <a href="#">Emerging Issues</a>
+                <a href="{% url 'patient_registration' %}">Register Patients</a>
+                <!-- Add other navigation links as needed -->
+                <a href="{% url 'landing_page' %}">Home</a> 
+                <a href="#">Sign Out</a>
+               <!-- Link to sign out for the incharge -->
+            </div>
+        </div>
 
-            <label for="patientDepartment">Patient Department:</label>
-            <select id="patientDepartment" name="department" required>
-                <option value="">Select Department</option>
-                <option value="Department A">Department A</option>
-                <option value="Department B">Department B</option>
-                <option value="Department C">Department C</option>
-            </select><br><br>
+        <!-- Main Content -->
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar"> <!-- Adjust the col-md-* class to your desired width -->
+                <a href="{% url 'landing_page' %}"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-exclamation"></i> Emerging Issues</a>
+                <a href="{% url 'patient_registration' %}"><i class="fas fa-users"></i> Students</a>
+                <a href="{% url 'patient_attendance' %}"><i class="fas fa-user-edit"></i> Register Patients</a>
+                
+                <!-- Sign Out link is moved to the bottom -->
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Sign Out</a> <!-- Link to sign out for the incharge -->
+            </div>
 
-            <!-- Add the new hidden field for is_inpatient -->
-            <input type="hidden" name="is_inpatient" value="True">
+            <!-- Content Area -->
+            <div class="col-md-10 content">
+                <div class="container">
+                    <img src="/static/images/1.png" alt="Hospital Logo" class="hospital-logo">
+                    <h1>Inpatient Sign-in</h1>
+                    <form method="post" action="{% url 'save_inpatient_details' %}" id="inpatientSigninForm">
+                        {% csrf_token %}
+                        <input type="hidden" name="student_number" value="{{ patient.student_number }}">
+                        <div class="form-group">
+                            <label for="roomNumber">Room Number:</label>
+                            <input type="text" id="roomNumber" name="room_number" required class="form-control">
+                        </div>
 
-            <button type="submit">Sign In</button>
-        </form>
+                        <div class="form-group">
+                            <label for="patientDepartment">Patient Department:</label>
+                            <select id="patientDepartment" name="department" required class="form-control">
+                                <option value="">Select Department</option>
+                                <option value="Department A">Department A</option>
+                                <option value="Department B">Department B</option>
+                                <option value="Department C">Department C</option>
+                            </select>
+                        </div>
+
+                        <!-- Add the new hidden field for is_inpatient -->
+                        <input type="hidden" name="is_inpatient" value="True">
+
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </form>
+                </div>
+                <div class="footer mt-4">
+                    &copy; 2023 KezzyCodeCove. All rights reserved.
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="footer">
-        <p>&copy; {{ year }} KezzyCodeCove. All rights reserved. </p>
-    </div>
+
+    <!-- Add Bootstrap JS and jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add Font Awesome JS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>

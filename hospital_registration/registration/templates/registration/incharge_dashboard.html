@@ -1,19 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Login</title>
+    <title>Admin Dashboard</title>
+    <!-- Add Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add Font Awesome CSS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            background-color: #f1f1f1;
-            background-image: url("/static/images/background2_image.jpg"); /* Replace with the actual image URL */
-            background-size: cover;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
+            background-color: #e0ffff; /* Baby Cyan */
+        }
+
+        .sidebar {
+            background-color:white;
+            color:black;
+            height: 100vh;
+            padding-top: 20px;
+            width: 150px; /* Adjust the width as needed */
+        }
+        .form-container img {
+            max-width: 100px;
+            display: block;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar a {
+            color:black;
+            text-decoration: none;
+            display: block;
+            padding: 10px 20px;
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+        }
+
+        .content {
+            padding: 20px;
         }
 
         .top-bar {
-            background-color:black;
+            background-color: #333;
             color: #fff;
             padding: 10px;
             text-align: center;
@@ -33,30 +62,158 @@
 
         .footer {
             color: black;
-           
             text-align: center;
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            font-weight:bold;
+            font-weight: bold;
+            background-color: #f9f9f9;
+            padding: 10px;
+        }
+        
+        /* Improved styling for the form */
+        .form-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 1px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .hospital-logo {
+            max-width: 100px;
+            margin: 0 auto 20px;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #428bca;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #3071a9;
+        }
+
+        /* Style for the "Sign Out" button */
+        button[type="submit"].sign-out {
+            background-color:black; /* Red color for sign-out button */
+        }
+
+        /* Center the buttons inside the form */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            
         }
     </style>
 </head>
 <body>
-    <div class="top-bar">
-        <a href="{% url 'landing_page' %}">Home</a>
-        <a href="{% url 'patient_attendance' %}">Emerging Issues</a>
-        <a href="{% url 'patient_attendance' %}">Register Patients</a>
-        <!-- Add other navigation links as needed -->
+    <div class="container-fluid">
+        <!-- Top Bar -->
+        <div class="row">
+            <div class="col-12 top-bar">
+              
+                <a href="#">Emerging Issues</a>
+                <a href="{% url 'patient_registration' %}">Register Patients</a>
+                <!-- Add other navigation links as needed -->
+                <a href="{% url 'landing_page' %}">Home</a> 
+                <a href="#">Sign Out</a>
+               <!-- Link to sign out for the incharge -->
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar"> <!-- Adjust the col-md-* class to your desired width -->
+                <a href="{% url 'landing_page' %}"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-exclamation"></i> Emerging Issues</a>
+                <a href="{% url 'patient_registration' %}"><i class="fas fa-users"></i> Students</a>
+                <a href="{% url 'patient_attendance' %}"><i class="fas fa-user-edit"></i> Register Patients</a>
+                
+                <!-- Sign Out link is moved to the bottom -->
+                <a href="{% url 'patient_dashboard' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a> <!-- Link to sign out for the incharge -->
+            </div>
+
+            <!-- Content Area -->
+            <div class="col-md-10 content"> <!-- Adjust the col-md-* class to fit the remaining width -->
+                <div class="form-container">
+                    <div style="text-align: center;">
+                        <img src="/static/images/1.png" alt="Hospital Logo" class="hospital-logo">
+                        <h1>Patient Attendance</h1>
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% if error %}
+                        <p class="error">{{ error }}</p>
+                        {% endif %}
+                        <label for="student_number">Student Number:</label>
+                        <input type="text" name="student_number" id="student_number">
+                        <label for="option">Select Option:</label>
+                        <select name="option" id="option">
+                            <option value="inpatient">Inpatient</option>
+                            <option value="outpatient">Outpatient</option>
+                        </select>
+                        <div class="button-container">
+                            <button type="submit">Proceed</button>
+                            <!-- Add the sign-out button for patients -->
+                            <form action="{% url 'patient_dashboard' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="sign-out">Sign Out</button>
+                            </form>
+                        </div>
+                    </form>
+                </div>
+                <!-- No need for the video-container and video elements -->
+
+                <div class="footer mt-4">
+                    &copy; 2023 KezzyCodeCove. All rights reserved.
+                </div>
+            </div>
+        </div>
     </div>
 
-    <h1>WELCOME INCHARGE</h1>
-
-    <!-- No need for the video-container and video elements -->
-
-    <div class="footer">
-        &copy; 2023 KezzyCodeCove. All rights reserved.
-    </div>
+    <!-- Add Bootstrap JS and jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add Font Awesome JS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>

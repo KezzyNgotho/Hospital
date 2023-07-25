@@ -5,161 +5,196 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Include the datepicker CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+   
     <style>
-        * {
-            box-sizing: border-box;
+        body {
+            background-color: #e0ffff; /* Baby Cyan */
         }
 
+        /* Existing styles for sidebar and top-bar */
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
+            background-color: #e0ffff; /* Baby Cyan */
+        }
+
+        .sidebar {
+            background-color:white;
+            color:black;
+            height: 100vh;
+            padding-top: 20px;
+            width: 150px; /* Adjust the width as needed */
+        }
+        .form-container img {
+            max-width: 100px;
+            display: block;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar a {
+            color:black;
+            text-decoration: none;
+            display: block;
+            padding: 10px 20px;
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+        }
+
+        .content {
+            padding: 20px;
         }
 
         .top-bar {
-            background-color: black;
+            background-color: #333;
             color: #fff;
-            padding: 1px;
+            padding: 10px;
             text-align: center;
         }
 
-        .navbar {
-            background-color: black;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 50px;
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 40px;
+        }
+
+        .footer {
+            color: black;
+            text-align: center;
             position: fixed;
-            top: 0;
+            bottom: 0;
             left: 0;
             right: 0;
-        }
-
-        .navbar h1 {
-            margin: 0;
-            padding: 0;
-            font-size: 1.2rem;
-        }
-
-        .navbar ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar li {
-            margin: 0 15px;
-        }
-
-        .navbar li a {
-            color: white;
-            text-decoration: none;
             font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            background-color: #f9f9f9;
+            padding: 10px;
         }
 
-        .navbar li a:hover {
-            background-color: #3071a9;
+        /* Improved styling for the content section */
+
+        .content {
+            padding: 20px;
+        }
+
+        .content h2 {
+            text-align: center;
+            margin-top: 40px;
         }
 
         .container {
-            max-width: 1000px; /* Increased size of the container */
-            margin: 70px auto 20px; /* Added top margin to avoid overlapping with fixed navbar */
+            max-width: 500px;
+            margin: 30px auto;
             padding: 20px;
-            background-color:white;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #428bca;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-
-        .details {
             background-color: #fff;
-            padding: 20px;
             border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 10px;
-        }
-
-        .details p {
-            margin-bottom: 10px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        label {
-            margin-bottom: 5px;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            resize: vertical;
-        }
-
-        input[type="submit"] {
-            background-color: #428bca;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-            width: 100%;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #3071a9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .hospital-logo {
-            max-width: 150px;
-            margin: 0 auto 10px;
+            max-width: 100px;
+            margin: 0 auto 20px;
             display: block;
             border-radius: 50%;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        .footer {
-            color: black;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
+        .container h2 {
+            margin-bottom: 20px;
         }
 
-        .footer p {
-            margin: 0;
-            padding: 5px;
+        .details {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .details p {
+            margin: 5px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            background-color: #428bca;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #3071a9;
+        }
+
+        /* Style for the "Sign Out" button */
+        .btn-sign-out {
+            background-color: black;
+        }
+
+        /* Footer styling */
+        .footer {
+            color: black;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-weight: bold;
+            background-color: #f9f9f9;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="top-bar"></div>
-    <div class="navbar">
-        <h1>Patient Dashboard</h1>
-        <ul>
-            <li><a href="{% url 'incharge_dashboard' %}">Incharge</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </div>
+    <div class="container-fluid">
+        <!-- Top Bar -->
+        <div class="row">
+            <div class="col-12 top-bar">
+                <a href="#">Emerging Issues</a>
+                <a href="{% url 'patient_registration' %}">Register Patients</a>
+                <!-- Add other navigation links as needed -->
+                <a href="{% url 'landing_page' %}">Home</a> 
+                <a href="#">Sign Out</a>
+               <!-- Link to sign out for the incharge -->
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar"> <!-- Adjust the col-md-* class to your desired width -->
+                <a href="{% url 'landing_page' %}"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-exclamation"></i> Emerging Issues</a>
+                <a href="{% url 'patient_registration' %}"><i class="fas fa-users"></i> Students</a>
+                <a href="{% url 'patient_attendance' %}"><i class="fas fa-user-edit"></i> Register Patients</a>
+                
+                <!-- Sign Out link is moved to the bottom -->
+                <a href="{% url 'patient_dashboard' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a> <!-- Link to sign out for the incharge -->
+            </div>
+
+    
+    <div class="col-md-10 content">
+
     <div class="container">
         <img src="/static/images/1.png" alt="Hospital Logo" class="hospital-logo">
         <h2>Welcome, {{ patient_name }}!</h2>
@@ -206,6 +241,9 @@
         {% endif %}
     </div>
     
+
+    <div class="footer mt-4">
+
     <footer class="footer">
         <!-- Add footer content here -->
         <p>&copy; {{ year }} KezzyCodeCove. All rights reserved. </p>

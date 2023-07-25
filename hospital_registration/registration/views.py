@@ -438,3 +438,13 @@ def get_total_patients():
 def get_total_incharges():
     total_incharges = Incharge.objects.count()
     return total_incharges
+
+
+def patients_list_view(request):
+    patients = Patient.objects.all()  # Fetch all patient objects from the database
+    context = {
+        'patients': patients
+    }
+    return render(request, 'patients_list.html', context)
+
+

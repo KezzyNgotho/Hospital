@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Dashboard - KezzyCodeCove</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Add other CSS files or custom styles here if needed -->
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0; /* Added margin to body to remove default margin */
+            background-color: #e0ffff;
+            margin: 0;
+            overflow-x: hidden; /* Hide horizontal scrollbar */
         }
-
         .navbar {
-            background-color: black;
+            background-color:black;
             color: white;
             display: flex;
             align-items: center;
             padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000; /* Set z-index to make it appear on top of other elements */
         }
 
         .navbar img {
@@ -36,12 +40,12 @@
         }
 
         .navbar a:hover {
-            color: lightgray;
+            color: #ccc;
         }
 
         .container {
-            padding-top: 10px; /* Updated to add some top padding */
-            margin-left:190px
+            padding-top: 60px;
+            margin-left: 200px;
         }
 
         .content {
@@ -49,7 +53,7 @@
         }
 
         .sidebar {
-            background-color: #f4f6fc;
+            background-color:white;
             color: black;
             position: fixed;
             top: 70px;
@@ -64,25 +68,25 @@
             display: block;
             padding: 10px;
             text-decoration: none;
-            border-bottom: 1px solid #555;
+            border-bottom: 1px solid #ddd;
         }
 
         .sidebar a:hover {
-            background-color: #555;
+            background-color: #f8f8f8;
         }
 
         .card {
+            max-width: 300px; /* Adjust the value as needed */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
-            
             border-width: 1px;
         }
 
         .card-header {
-            background-color: #f4f6fc;
+            background-color: #f8f8f8;
             color: black;
             font-weight: bold;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid #ddd;
         }
 
         .card-body {
@@ -121,15 +125,14 @@
 <body>
     <div class="navbar">
         <img src="/static/images/1.png" alt="Hospital Logo">
-        <h1>KezzyCodeCove</h1>
+        <h1>CodeCove</h1>
         <a href="{% url 'landing_page' %}">Home</a>
-        {% comment %} <a href="#">Profile</a>
-        <a href="#">Settings</a> {% endcomment %}
+        <!-- Add other navigation links here if needed -->
         <a href="#">Logout</a>
     </div>
     <div class="sidebar">
         <a href="#">Dashboard</a>
-        <a href="#">Patients</a>
+        <a href="{% url 'patients_list' %}">Patients</a>
         <a href="#">Attendance</a>
         <!-- Add other sidebar links here -->
     </div>
@@ -137,7 +140,7 @@
         <div class="container">
             <h2 class="text-center">Welcome, Admin!</h2>
             <div class="row mt-4">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="text-center">Total Patients</h3>
@@ -147,7 +150,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="text-center">Total Incharges</h3>
@@ -156,15 +159,8 @@
                             <p class="card-title text-center">Total number of incharges: {{ total_incharges }}</p>
                         </div>
                     </div>
-
-
-                    
                 </div>
-                
-            </div>
-
-               <div class="row mt-4">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="text-center">Total Attendance</h3>
@@ -174,56 +170,57 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="text-center">Inpatients</h3>
-                        </div>
-                        <div class="card-body">
-                            {% if inpatients %}
-                                <ul class="list-group">
-                                    {% for inpatient in inpatients %}
-                                        <li class="list-group-item">
-                                            <strong>Patient Number:</strong> {{ inpatient.patient.student_number }}<br>
-                                            <strong>Patient Name:</strong> {{ inpatient.patient.full_name }}<br>
-                                            <strong>Room Number:</strong> {{ inpatient.patient.room_number }}<br>
-                                            <strong>Department:</strong> {{ inpatient.patient.department }}<br>
-                                            <strong>Check-in Date:</strong> {{ inpatient.check_in|date:"F d, Y" }}<br>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p class="text-center">No inpatients found.</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="row mt-4">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="text-center">Outpatients</h3>
-                        </div>
-                        <div class="card-body">
-                            {% if outpatients %}
-                                <ul class="list-group">
-                                    {% for outpatient in outpatients %}
-                                        <li class="list-group-item">
-                                            <strong>Patient Number:</strong> {{ outpatient.patient.student_number }}<br>
-                                            <strong>Patient Name:</strong> {{ outpatient.patient.full_name }}<br>
-                                            <strong>Check-in Date:</strong> {{ outpatient.check_in|date:"F d, Y" }}<br>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p class="text-center">No outpatients found.</p>
-                            {% endif %}
-                        </div>
-                    </div>
+                <div class="col-md-4">
+                <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Inpatients</h3>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
+                <div class="card-body">
+                    {% if inpatients %}
+                        <ul class="list-group">
+                            {% for inpatient in inpatients %}
+                                <li class="list-group-item">
+                                    <strong>Patient Number:</strong> {{ inpatient.patient.student_number }}<br>
+                                    <strong>Patient Name:</strong> {{ inpatient.patient.full_name }}<br>
+                                    <strong>Room Number:</strong> {{ inpatient.patient.room_number }}<br>
+                                    <strong>Department:</strong> {{ inpatient.patient.department }}<br>
+                                    <strong>Check-in Date:</strong> {{ inpatient.check_in|date:"F d, Y" }}<br>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-center">No inpatients found.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+        <div class="card">
+
+            <div class="card-header">
+                <h3 class="text-center">Outpatients</h3>
+            </div>
+            <div class="card-body">
+                {% if outpatients %}
+                    <ul class="list-group">
+                        {% for outpatient in outpatients %}
+                            <li class="list-group-item">
+                                <strong>Patient Number:</strong> {{ outpatient.patient.student_number }}<br>
+                                <strong>Patient Name:</strong> {{ outpatient.patient.full_name }}<br>
+                                <strong>Check-in Date:</strong> {{ outpatient.check_in|date:"F d, Y" }}<br>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-center">No outpatients found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+            <div class="card">
                         <div class="card-header">
                             <h3 class="text-center">Common Diseases Summary</h3>
                         </div>
@@ -241,40 +238,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-4">
-                <div class="col">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="text-center">Sign Out Patients</h3>
-                        </div>
-                        <div class="card-body">
-                            {% if sign_out_patients %}
-                                <ul class="list-group">
-                                    {% for sign_out_patient in sign_out_patients %}
-                                        <li class="list-group-item">
-                                            <strong>Patient Number:</strong> {{ sign_out_patient.patient.student_number }}<br>
-                                            <strong>Patient Name:</strong> {{ sign_out_patient.patient.full_name }}<br>
-                                            <strong>Sign Out Date:</strong> {{ sign_out_patient.signed_out|date:"F d, Y" }}<br>
-                                            {% if sign_out_patient.is_inpatient %}
-                                                <strong>Room Number:</strong> {{ sign_out_patient.room_number }}<br>
-                                                <strong>Department:</strong> {{ sign_out_patient.department }}<br>
-                                            {% endif %}
-                                            <strong>Activities during the stay:</strong> {{ sign_out_patient.activities }}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p class="text-center">No sign out patients found.</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+    </div>   <!-- Add more cards here -->
             </div>
-        </div>
-    </div>
-            <!-- ... -->
-            <!-- ... -->
-
+            <div class="row mt-4">
+                <!-- Add more cards here -->
+            </div>
         </div>
     </div>
     <footer class="footer">
@@ -285,6 +253,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Add other JavaScript files or custom scripts here if needed -->
 </body>
 </html>

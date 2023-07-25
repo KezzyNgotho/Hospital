@@ -8,7 +8,7 @@
             font-family: Arial, sans-serif;
             padding: 20px;
         }
-        
+
         .top-bar {
             background-color: #333;
             padding: 10px;
@@ -18,14 +18,14 @@
             left: 0;
             right: 0;
         }
-        
+
         .top-bar a {
             margin: 0 20px;
             text-decoration: none;
             color: #fff;
             font-weight: bold;
         }
-        
+
         .container {
             display: flex;
             justify-content: center;
@@ -37,30 +37,30 @@
             border-radius: 4px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
-        
+
         .container .image-container {
             flex: 1;
             text-align: center;
         }
-        
+
         .container .image-container img {
             max-width: 300px;
             height: auto;
         }
-        
+
         .container .form-container {
             flex: 1;
             max-width: 300px;
             margin-left: 40px;
         }
-        
+
         .container h2 {
             margin-top: 0;
             color: #333;
             margin-bottom: 20px;
             text-align: center;
         }
-        
+
         .container .form-container input[type="email"],
         .container .form-container input[type="password"] {
             width: 100%;
@@ -70,7 +70,7 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
-        
+
         .container .form-container button[type="submit"] {
             background-color: #428bca;
             color: #fff;
@@ -81,22 +81,35 @@
             font-size: 16px;
             width: 100%;
         }
-        
+
         .container .form-container button[type="submit"]:hover {
             background-color: #3071a9;
         }
 
-         
-    .footer {
-        background-color: #333;
-        color: #fff;
-        padding: 10px;
-        text-align: center;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        .container .form-container p {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container .form-container p a {
+            color: #428bca;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container .form-container p a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -105,10 +118,10 @@
         <a href="#">Emergency</a>
         <a href="#">Contacts</a>
     </div>
-    
+
     <div class="container">
         <div class="image-container">
-            <img src="/static/images/health_image.jpg" alt="Health Image">
+            <img src="/static/images/1.png" alt="Hospital Logo">
         </div>
         <div class="form-container">
             <h2>Incharge Login</h2>
@@ -119,20 +132,17 @@
                         <li>{{ message }}</li>
                     {% endfor %}
                 </ul>
-            {% endif %}
+                {% endif %}
                 {% csrf_token %}
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <button type="submit">Login</button>
             </form>
-         
-         
-           
-            
+
             <p>If you are not registered as an incharge, <a href="{% url 'incharge_signup' %}">click here to register</a>.</p>
-           
+
         </div>
-        
+
     </div>
     <div class="footer">
         &copy; 2023 KezzyCodeCove.. All rights reserved.

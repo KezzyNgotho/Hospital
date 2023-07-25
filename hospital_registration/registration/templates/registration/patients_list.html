@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patients List - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0ffff;
+            margin: 0;
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+        }
+        .navbar {
+            background-color:black;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000; /* Set z-index to make it appear on top of other elements */
+        }
+
+        .navbar img {
+            max-height: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            flex: 1;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .navbar a:hover {
+            color: #ccc;
+        }
+
+        .container {
+            padding-top: 60px;
+            margin-left: 200px;
+        }
+
+        .content {
+            padding: 2px;
+        }
+
+        .sidebar {
+            background-color:white;
+            color: black;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            bottom: 0;
+            width: 200px;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            color: black;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .sidebar a:hover {
+            background-color: #f8f8f8;
+        }
+
+        .card {
+            max-width: 300px; /* Adjust the value as needed */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border-width: 1px;
+        }
+
+        .card-header {
+            background-color: #f8f8f8;
+            color: black;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .list-group-item {
+            border: none;
+            font-size: 14px;
+        }
+
+        .list-group-item strong {
+            font-weight: bold;
+        }
+
+        .footer {
+            color: black;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="/static/images/1.png" alt="Hospital Logo">
+        <h1>CodeCove</h1>
+        <a href="{% url 'landing_page' %}">Home</a>
+        <!-- Add other navigation links here if needed -->
+        <a href="#">Logout</a>
+    </div>
+    <div class="sidebar">
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="#">Patients</a>
+        <a href="#">Attendance</a>
+        <!-- Add other sidebar links here -->
+    </div>
+    <div class="content">
+        <div class="container">
+            <h2 class="text-center">Patients List</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Patient Number</th>
+                            <th>Patient Name</th>
+                            <th>Room Number</th>
+                            <th>Department</th>
+                            <th>Check-in Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr>
+                            <td>{{ patient.student_number }}</td>
+                            <td>{{ patient.full_name }}</td>
+                            <td>{{ patient.room_number }}</td>
+                            <td>{{ patient.department }}</td>
+                            <td>{{ patient.check_in|date:"F d, Y" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
